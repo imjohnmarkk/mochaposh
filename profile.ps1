@@ -1,5 +1,9 @@
 # ── Prompt ──────────────────────────────────────────────────────────────────
-oh-my-posh init pwsh --config "$env:USERPROFILE\.config\ohmyposh\minimal.json" | Invoke-Expression
+$_ompCache = "$env:TEMP\mochaposh-omp.ps1"
+if (-not (Test-Path $_ompCache) -or ((Get-Date) - (Get-Item $_ompCache).LastWriteTime).TotalHours -gt 24) {
+    oh-my-posh init pwsh --config "$env:USERPROFILE\.config\ohmyposh\minimal.json" | Out-File $_ompCache -Encoding utf8
+}
+. $_ompCache
 
 # ── Icons ────────────────────────────────────────────────────────────────────
 Import-Module Terminal-Icons
@@ -12,12 +16,16 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 Set-PSReadLineKeyHandler -Key Tab       -Function MenuComplete
 
 # ── zoxide (smart cd) ────────────────────────────────────────────────────────
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
+$_zoxideCache = "$env:TEMP\mochaposh-zoxide.ps1"
+if (-not (Test-Path $_zoxideCache)) {
+    zoxide init powershell | Out-File $_zoxideCache -Encoding utf8
+}
+. $_zoxideCache
 
 # ── fzf + PSFzf ──────────────────────────────────────────────────────────────
 Import-Module PSFzf
-Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'        # file picker
-Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r'  # history picker
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t'
+Set-PsFzfOption -PSReadlineChordReverseHistory 'Ctrl+r'
 
 $env:FZF_DEFAULT_OPTS = @"
 --height 40% --layout=reverse --border=rounded
