@@ -9,6 +9,12 @@
       "newline": true,
       "segments": [
         {
+          "type": "os",
+          "style": "plain",
+          "foreground": "#cba4f7",
+          "template": "{{ .Icon }} "
+        },
+        {
           "type": "path",
           "style": "plain",
           "foreground": "#89b4fa",
@@ -23,6 +29,49 @@
             "{{ if .Staging.Changed }}#f9e2af{{ end }}"
           ],
           "template": "   {{ .HEAD }}{{ if .Working.Changed }} ✎{{ end }}{{ if .Staging.Changed }} 󰐕{{ end }}{{ if and (not .Working.Changed) (not .Staging.Changed) }} ✓{{ end }}"
+        },
+        {
+          "type": "node",
+          "style": "plain",
+          "foreground": "#a6e3a1",
+          "template": "   {{ .Full }}",
+          "properties": {
+            "display_mode": "files",
+            "fetch_version": true
+          }
+        },
+        {
+          "type": "python",
+          "style": "plain",
+          "foreground": "#f9e2af",
+          "template": "   {{ .Full }}",
+          "properties": {
+            "display_mode": "files",
+            "fetch_version": true,
+            "fetch_virtual_env": true
+          }
+        },
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "#f5c2e7",
+          "template": "  󱦟 {{ .FormattedMs }}",
+          "properties": {
+            "threshold": 2000,
+            "style": "austin"
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "time",
+          "style": "plain",
+          "foreground": "#585b70",
+          "template": "  {{ .CurrentDate | date \"15:04\" }} "
         }
       ]
     },
@@ -32,9 +81,12 @@
       "newline": true,
       "segments": [
         {
-          "type": "text",
+          "type": "status",
           "style": "plain",
-          "foreground": "#cdd6f4",
+          "foreground": "#a6e3a1",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}#f38ba8{{ end }}"
+          ],
           "template": "❯ "
         }
       ]
