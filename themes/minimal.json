@@ -12,7 +12,7 @@
           "type": "path",
           "style": "plain",
           "foreground": "#89b4fa",
-          "template": " {{ .Path }}"
+          "template": "󰉋 {{ .Path }}"
         },
         {
           "type": "git",
@@ -22,7 +22,7 @@
             "{{ if .Working.Changed }}#fab387{{ end }}",
             "{{ if .Staging.Changed }}#f9e2af{{ end }}"
           ],
-          "template": "  {{ .HEAD }}{{ if .Working.Changed }} ✎{{ end }}{{ if .Staging.Changed }} +{{ end }}{{ if and (not .Working.Changed) (not .Staging.Changed) }} ✓{{ end }}"
+          "template": "   {{ .HEAD }}{{ if .Working.Changed }} ✎{{ end }}{{ if .Staging.Changed }} 󰐕{{ end }}{{ if and (not .Working.Changed) (not .Staging.Changed) }} ✓{{ end }}"
         }
       ]
     },
