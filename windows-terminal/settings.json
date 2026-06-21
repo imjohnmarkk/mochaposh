@@ -29,6 +29,7 @@
 
   "_powershell_profile_entry": {
     "_comment": "Add this inside profiles.list[] for your PowerShell 7 entry",
+    "commandline": "pwsh.exe -NoLogo",
     "font": {
       "face": "CaskaydiaCove NF",
       "size": 13
