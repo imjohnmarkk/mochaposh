@@ -1,9 +1,9 @@
-# ── Prompt ──────────────────────────────────────────────────────────────────
-$_ompCache = "$env:TEMP\mochaposh-omp.ps1"
-if (-not (Test-Path $_ompCache) -or ((Get-Date) - (Get-Item $_ompCache).LastWriteTime).TotalHours -gt 24) {
-    oh-my-posh init pwsh --config "$env:USERPROFILE\.config\ohmyposh\minimal.json" | Out-File $_ompCache -Encoding utf8
+# ── Prompt (Starship) ────────────────────────────────────────────────────────
+$_starshipCache = "$env:TEMP\mochaposh-starship.ps1"
+if (-not (Test-Path $_starshipCache) -or ((Get-Date) - (Get-Item $_starshipCache).LastWriteTime).TotalHours -gt 24) {
+    & starship init powershell | Out-File $_starshipCache -Encoding utf8
 }
-. $_ompCache
+. $_starshipCache
 
 # ── Icons ────────────────────────────────────────────────────────────────────
 Import-Module Terminal-Icons
