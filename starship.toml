@@ -72,9 +72,8 @@ style  = "sky bold"
 format = "[$symbol$version]($style) "
 
 [cmd_duration]
-symbol            = "󱦟 "
 style             = "pink bold"
-format            = "[$symbol$duration]($style) "
+format            = "[󱦟 $duration]($style) "
 min_time          = 2000
 show_milliseconds = false
 
