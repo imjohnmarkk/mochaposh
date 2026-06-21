@@ -2,6 +2,7 @@ palette = "catppuccin_mocha"
 
 format = """
 $os\
+$username\
 $directory\
 $git_branch\
 $git_status\
@@ -9,15 +10,17 @@ $nodejs\
 $python\
 $rust\
 $golang\
+$package\
 $cmd_duration\
 $fill\
 $time\
 $line_break\
 $character"""
 
+# ── OS ───────────────────────────────────────────────────────────────────────
 [os]
 disabled = false
-style = "mauve bold"
+style    = "mauve bold"
 
 [os.symbols]
 Windows = " "
@@ -25,72 +28,104 @@ Macos   = " "
 Linux   = " "
 Ubuntu  = " "
 Debian  = " "
-Arch    = " "
+Arch    = "󰣇 "
 
+# ── Username (only shows over SSH or as root) ────────────────────────────────
+[username]
+show_always = false
+style_user  = "teal bold"
+style_root  = "red bold"
+format      = "[$user]($style) in "
+
+# ── Directory ────────────────────────────────────────────────────────────────
 [directory]
-style              = "blue bold"
-format             = "󰉋 [$path]($style) "
-truncation_length  = 4
-truncate_to_repo   = true
-home_symbol        = "~"
+style             = "blue bold"
+format            = "󰉋 [$path]($style)[$read_only]($read_only_style) "
+truncation_length = 4
+truncate_to_repo  = true
+home_symbol       = "~"
+read_only         = "  "
+read_only_style   = "red"
 
+# ── Git branch ───────────────────────────────────────────────────────────────
 [git_branch]
 symbol = " "
 style  = "green bold"
-format = "[ $symbol$branch(:$remote_branch)]($style) "
+format = "on [$symbol$branch]($style) "
 
+# ── Git status (one icon per state) ──────────────────────────────────────────
 [git_status]
-style     = "peach bold"
-format    = "([$all_status$ahead_behind]($style) )"
-ahead     = "⇡$count"
-behind    = "⇣$count"
-diverged  = "⇕⇡$ahead_count⇣$behind_count"
-modified  = "✎$count"
-staged    = "󰐕$count"
-untracked = "?$count"
-deleted   = "✘$count"
+style      = "peach bold"
+format     = '([$conflicted$stashed$deleted$renamed$modified$staged$untracked$ahead_behind]($style) )'
+conflicted = "󰞇 "
+ahead      = "⇡$count "
+behind     = "⇣$count "
+diverged   = "⇕ "
+up_to_date = "✓ "
+untracked  = " $count "
+stashed    = "󰏗 $count "
+modified   = " $count "
+staged     = " $count "
+renamed    = " "
+deleted    = " $count "
 
+# ── Node.js ──────────────────────────────────────────────────────────────────
 [nodejs]
-symbol = " "
-style  = "green bold"
-format = "[$symbol$version]($style) "
+symbol       = " "
+style        = "green bold"
+format       = "via [$symbol$version]($style) "
+detect_files = ["package.json", ".nvmrc", ".node-version"]
 
+# ── Python ───────────────────────────────────────────────────────────────────
 [python]
 symbol        = " "
 style         = "yellow bold"
-format        = "[$symbol$pyenv_prefix($version)( \\($virtualenv\\))]($style) "
+format        = "via [$symbol$pyenv_prefix($version)( \\($virtualenv\\))]($style) "
 detect_files  = ["requirements.txt", "pyproject.toml", ".python-version", "Pipfile"]
 
+# ── Rust ─────────────────────────────────────────────────────────────────────
 [rust]
 symbol = " "
 style  = "peach bold"
-format = "[$symbol$version]($style) "
+format = "via [$symbol$version]($style) "
 
+# ── Go ───────────────────────────────────────────────────────────────────────
 [golang]
 symbol = " "
 style  = "sky bold"
-format = "[$symbol$version]($style) "
+format = "via [$symbol$version]($style) "
 
+# ── Package version ──────────────────────────────────────────────────────────
+[package]
+symbol  = "󰏗 "
+style   = "peach bold"
+format  = "[$symbol$version]($style) "
+display_private = false
+
+# ── Execution time ───────────────────────────────────────────────────────────
 [cmd_duration]
 style             = "pink bold"
-format            = "[󱦟 $duration]($style) "
+format            = "took [󱦟 $duration]($style) "
 min_time          = 2000
 show_milliseconds = false
 
+# ── Fill + Time ──────────────────────────────────────────────────────────────
 [fill]
 symbol = " "
 
 [time]
-disabled     = false
-style        = "surface2 bold"
-format       = "[ $time]($style)"
-time_format  = "%H:%M"
+disabled    = false
+style       = "surface2 bold"
+format      = "[ $time]($style)"
+time_format = "%H:%M"
 
+# ── Cursor ───────────────────────────────────────────────────────────────────
 [character]
 success_symbol = "[❯](bold green)"
 error_symbol   = "[❯](bold red)"
 vimcmd_symbol  = "[❮](bold mauve)"
 
+# ── Catppuccin Mocha palette ─────────────────────────────────────────────────
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
 flamingo  = "#f2cdcd"
